@@ -8,6 +8,11 @@ variable "GITHUB_REF" {
   default = ""
 }
 
+// Fingerprint of the GPG key as defined in https://github.com/crazy-max/ghaction-import-gpg
+variable "GPG_FINGERPRINT" {
+  default = ""
+}
+
 target "go-version" {
   args = {
     GO_VERSION = GO_VERSION
@@ -63,6 +68,7 @@ target "test-debian" {
 target "artifact" {
   args = {
     GIT_REF = GITHUB_REF
+    GPG_FINGERPRINT = GPG_FINGERPRINT
   }
   inherits = ["go-version"]
   target = "artifacts"

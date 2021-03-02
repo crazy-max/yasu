@@ -14,6 +14,7 @@ DISTPATH=$2
 : ${GOMIPS=}
 : ${GOBIN=}
 : ${GIT_REF=}
+: ${GPG_FINGERPRINT=}
 
 set -eu
 
@@ -90,6 +91,10 @@ if [ -z "$GOBIN" ] && [ -n "$GOPATH" ] && [ -n "$GOARCH" ] && [ -n "$GOOS" ]; th
   export PATH=${GOPATH}/bin/${GOOS}_${GOARCH}:${PATH}
 fi
 
+if [ -n "${GPG_FINGERPRINT}" ]; then
+  SIGNING="all"
+fi
+
 cat > ./.goreleaser.yml <<EOL
 project_name: ${APPNAME}
 dist: ${DISTPATH}
@@ -123,6 +128,13 @@ archives:
     files:
       - LICENSE
       - README.md
+
+signs:
+  -
+    signature: "\${artifact}.asc"
+    cmd: gpg
+    args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "\${signature}", "--detach-sign", "\${artifact}"]
+    artifacts: ${SIGNING:-none}
 
 release:
   disable: true
