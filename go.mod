@@ -1,4 +1,4 @@
-module github.com/tianon/gosu
+module github.com/crazy-max/gosu
 
 go 1.14
 
