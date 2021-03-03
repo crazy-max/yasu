@@ -72,6 +72,22 @@ wget -qO- https://github.com/crazy-max/gosu/releases/download/v1.13.0/gosu_1.13.
 | [Docker Hub](https://hub.docker.com/r/crazymax/gosu/)                                            | `crazymax/gosu`                 |
 | [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/gosu)  | `ghcr.io/crazy-max/gosu`        |
 
+Following platforms for this image are available:
+
+```
+$ docker run --rm mplatform/mquery crazymax/gosu:latest
+Image: crazymax/alpine-s6:latest
+ * Manifest List: Yes
+ * Supported platforms:
+   - linux/amd64
+   - linux/arm/v6
+   - linux/arm/v7
+   - linux/arm64
+   - linux/386
+   - linux/ppc64le
+   - linux/s390x
+```
+
 Here is how to use `gosu` inside your Dockerfile:
 
 ```Dockerfile
@@ -79,20 +95,6 @@ ARG GOSU_VERSION=1.13.0
 
 FROM crazymax/gosu:${GOSU_VERSION} AS gosu
 FROM alpine
-COPY --from=gosu / /
-RUN gosu --version
-RUN gosu nobody true
-```
-
-As the [Docker image](https://hub.docker.com/r/crazymax/gosu/) is multi-platform with
-[BuildKit](https://github.com/moby/buildkit) you can also use `gosu` through the
-[automatic platform ARGs in the global scope](https://docs.docker.com/engine/reference/builder/#automatic-platform-args-in-the-global-scope):
-
-```Dockerfile
-ARG GOSU_VERSION=1.13.0
-
-FROM --platform=${TARGETPLATFORM:-linux/amd64} crazymax/gosu:${GOSU_VERSION} AS gosu
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine
 COPY --from=gosu / /
 RUN gosu --version
 RUN gosu nobody true
