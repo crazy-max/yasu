@@ -121,6 +121,7 @@ archives:
       - goos: windows
         format: zip
     files:
+      - CHANGELOG.md
       - LICENSE
       - README.md
 
