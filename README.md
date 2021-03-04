@@ -7,7 +7,7 @@
 
 ___
 
-* [Yet Another](#yet-another)
+* [Yet Another?](#yet-another)
 * [About](#about)
 * [Warning](#warning)
 * [Installation](#installation)
@@ -20,15 +20,24 @@ ___
   * [`chroot`](#chroot)
   * [`setpriv`](#setpriv)
   * [Others](#others)
+* [License](#license)
 
-# Yet Another
+# Yet Another?
 
+This repository is a fork of [tianon/gosu](https://github.com/tianon/gosu) and renamed to avoid confusion as asked by
+the main maintainer. See [tianon/gosu#82 (comment)](https://github.com/tianon/gosu/pull/82#issuecomment-790874961).
 
+`yasu` because it's _Yet Another Switch User_. The main purpose of this fork is to handle a functional
+multi-platform scratch Docker image to ease the [integration in a Dockerfile](#from-dockerfile). Everything is
+dockerized and handled by [buildx bake](#build) for an agnostic usage of this repo. Finally, GitHub Actions has been
+added to avoid tempered artifacts and more transparency around [releases](#from-binary).
+
+More info: [tianon/gosu#82](https://github.com/tianon/gosu/pull/82)
 
 # About
 
 This is a simple tool grown out of the simple fact that `su` and `sudo` have very strange and often annoying TTY and
-signal-forwarding behavior.  They're also somewhat complex to setup and use (especially in the case of `sudo`), which
+signal-forwarding behavior. They're also somewhat complex to setup and use (especially in the case of `sudo`), which
 allows for a great deal of expressivity, but falls flat if all you need is "run this specific application as this
 specific user and get out of the pipeline".
 
@@ -186,3 +195,7 @@ nobody       1  5.0  0.0   9592  1252 pts/0    RNs+ 23:21   0:00 ps faux
 I'm not terribly familiar with them, but a few other alternatives I'm aware of include:
 
 * `chpst` (part of `runit`)
+
+## License
+
+GPL-3.0. See `LICENSE` for more details.

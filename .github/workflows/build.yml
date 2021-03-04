@@ -40,7 +40,7 @@ jobs:
           tag-edge: true
           label-custom: |
             org.opencontainers.image.title=yasu
-            org.opencontainers.image.description=Simple Go-based setuid+setgid+setgroups+exec
+            org.opencontainers.image.description=Yet Another Switch User
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
