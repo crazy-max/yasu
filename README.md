@@ -1,12 +1,13 @@
-[![GitHub release](https://img.shields.io/github/release/crazy-max/gosu.svg?style=flat-square)](https://github.com/crazy-max/gosu/releases/latest)
-[![Total downloads](https://img.shields.io/github/downloads/crazy-max/gosu/total.svg?style=flat-square)](https://github.com/crazy-max/gosu/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/crazy-max/gosu/build?label=build&logo=github&style=flat-square)](https://github.com/crazy-max/gosu/actions?query=workflow%3Abuild)
-[![Docker Stars](https://img.shields.io/docker/stars/crazymax/gosu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/gosu/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/gosu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/gosu/)
-[![Go Report Card](https://goreportcard.com/badge/github.com/crazy-max/gosu)](https://goreportcard.com/report/github.com/crazy-max/gosu)
+[![GitHub release](https://img.shields.io/github/release/crazy-max/yasu.svg?style=flat-square)](https://github.com/crazy-max/yasu/releases/latest)
+[![Total downloads](https://img.shields.io/github/downloads/crazy-max/yasu/total.svg?style=flat-square)](https://github.com/crazy-max/yasu/releases/latest)
+[![Build Status](https://img.shields.io/github/workflow/status/crazy-max/yasu/build?label=build&logo=github&style=flat-square)](https://github.com/crazy-max/yasu/actions?query=workflow%3Abuild)
+[![Docker Stars](https://img.shields.io/docker/stars/crazymax/yasu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/yasu/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/yasu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/yasu/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/crazy-max/yasu)](https://goreportcard.com/report/github.com/crazy-max/yasu)
 
 ___
 
+* [Yet Another](#yet-another)
 * [About](#about)
 * [Warning](#warning)
 * [Installation](#installation)
@@ -20,6 +21,10 @@ ___
   * [`setpriv`](#setpriv)
   * [Others](#others)
 
+# Yet Another
+
+
+
 # About
 
 This is a simple tool grown out of the simple fact that `su` and `sudo` have very strange and often annoying TTY and
@@ -27,29 +32,29 @@ signal-forwarding behavior.  They're also somewhat complex to setup and use (esp
 allows for a great deal of expressivity, but falls flat if all you need is "run this specific application as this
 specific user and get out of the pipeline".
 
-The core of how `gosu` works is stolen directly from how Docker/libcontainer itself starts an application inside a
+The core of how `yasu` works is stolen directly from how Docker/libcontainer itself starts an application inside a
 container (and in fact, is using the `/etc/passwd` processing code directly from libcontainer's codebase).
 
 ```shell
-$ gosu
-Usage: ./gosu user-spec command [args]
-   eg: ./gosu tianon bash
-       ./gosu nobody:root bash -c 'whoami && id'
-       ./gosu 1000:1 id
+$ yasu
+Usage: ./yasu user-spec command [args]
+   eg: ./yasu tianon bash
+       ./yasu nobody:root bash -c 'whoami && id'
+       ./yasu 1000:1 id
 
-./gosu version: 1.1 (go1.3.1 on linux/amd64; gc)
+./yasu version: 1.1 (go1.3.1 on linux/amd64; gc)
 ```
 
-Once the user/group is processed, we switch to that user, then we `exec` the specified process and `gosu` itself is no
+Once the user/group is processed, we switch to that user, then we `exec` the specified process and `yasu` itself is no
 longer resident or involved in the process lifecycle at all.  This avoids all the issues of signal passing and TTY,
-and punts them to the process invoking `gosu` and the process being invoked by `gosu`, where they belong.
+and punts them to the process invoking `yasu` and the process being invoked by `yasu`, where they belong.
 
 ## Warning
 
-The core use case for `gosu` is to step _down_ from `root` to a non-privileged user during container startup
+The core use case for `yasu` is to step _down_ from `root` to a non-privileged user during container startup
 (specifically in the `ENTRYPOINT`, usually).
 
-Uses of `gosu` beyond that could very well suffer from vulnerabilities such as CVE-2016-2779 (from which the Docker
+Uses of `yasu` beyond that could very well suffer from vulnerabilities such as CVE-2016-2779 (from which the Docker
 use case naturally shields us); see [`tianon/gosu#37`](https://github.com/tianon/gosu/issues/37) for some discussion
 around this point.
 
@@ -57,25 +62,25 @@ around this point.
 
 ### From binary
 
-`gosu` binaries are available on [releases page](https://github.com/crazy-max/gosu/releases/latest).
+`yasu` binaries are available on [releases page](https://github.com/crazy-max/yasu/releases/latest).
 
 Choose the archive matching the destination platform:
 
 ```shell
-wget -qO- https://github.com/crazy-max/gosu/releases/download/v1.13.0/gosu_1.13.0_linux_x86_64.tar.gz | tar -zxvf - gosu
+wget -qO- https://github.com/crazy-max/yasu/releases/download/v1.13.0/yasu_1.13.0_linux_x86_64.tar.gz | tar -zxvf - yasu
 ```
 
 ### From Dockerfile
 
 | Registry                                                                                         | Image                           |
 |--------------------------------------------------------------------------------------------------|---------------------------------|
-| [Docker Hub](https://hub.docker.com/r/crazymax/gosu/)                                            | `crazymax/gosu`                 |
-| [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/gosu)  | `ghcr.io/crazy-max/gosu`        |
+| [Docker Hub](https://hub.docker.com/r/crazymax/yasu/)                                            | `crazymax/yasu`                 |
+| [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/yasu)  | `ghcr.io/crazy-max/yasu`        |
 
 Following platforms for this image are available:
 
 ```
-$ docker run --rm mplatform/mquery crazymax/gosu:latest
+$ docker run --rm mplatform/mquery crazymax/yasu:latest
 Image: crazymax/alpine-s6:latest
  * Manifest List: Yes
  * Supported platforms:
@@ -88,25 +93,25 @@ Image: crazymax/alpine-s6:latest
    - linux/s390x
 ```
 
-Here is how to use `gosu` inside your Dockerfile:
+Here is how to use `yasu` inside your Dockerfile:
 
 ```Dockerfile
-ARG GOSU_VERSION=1.13.0
+ARG YASU_VERSION=1.13.0
 
-FROM crazymax/gosu:${GOSU_VERSION} AS gosu
+FROM crazymax/yasu:${YASU_VERSION} AS yasu
 FROM alpine
-COPY --from=gosu / /
-RUN gosu --version
-RUN gosu nobody true
+COPY --from=yasu / /
+RUN yasu --version
+RUN yasu nobody true
 ```
 
 ## Build
 
-You only need Docker to build `gosu`:
+You only need Docker to build `yasu`:
 
 ```shell
-git clone https://github.com/crazy-max/gosu.git gosu
-cd gosu
+git clone https://github.com/crazy-max/yasu.git yasu
+cd yasu
 
 # validate (lint, vendors)
 docker buildx bake validate
@@ -114,7 +119,7 @@ docker buildx bake validate
 # test (test-alpine and test-debian bake targets)
 docker buildx bake test
 
-# build docker image and output to docker with gosu:local tag (default)
+# build docker image and output to docker with yasu:local tag (default)
 docker buildx bake
 
 # build multi-platform image
@@ -135,15 +140,15 @@ $ docker run -it --rm ubuntu:trusty sudo ps aux
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  3.0  0.0  46020  3144 ?        Ss+  02:22   0:00 sudo ps aux
 root         7  0.0  0.0  15576  2172 ?        R+   02:22   0:00 ps aux
-$ docker run -it --rm -v $PWD/gosu-amd64:/usr/local/bin/gosu:ro ubuntu:trusty gosu root ps aux
+$ docker run -it --rm -v $PWD/yasu-amd64:/usr/local/bin/yasu:ro ubuntu:trusty yasu root ps aux
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.0   7140   768 ?        Rs+  02:22   0:00 ps aux
 ```
 
-Additionally, due to the fact that `gosu` is using Docker's own code for processing these `user:group`, it has
+Additionally, due to the fact that `yasu` is using Docker's own code for processing these `user:group`, it has
 exact 1:1 parity with Docker's own `--user` flag.
 
-If you're curious about the edge cases that `gosu` handles, see [`hack/test.sh`](hack/test.sh) for the "test suite".
+If you're curious about the edge cases that `yasu` handles, see [`hack/test.sh`](hack/test.sh) for the "test suite".
 
 (Note that `sudo` has different goals from this project, and it is *not* intended to be a `sudo` replacement;
 for example, see [this Stack Overflow answer](https://stackoverflow.com/a/48105623) for a short explanation of
@@ -153,7 +158,7 @@ why `sudo` does `fork`+`exec` instead of just `exec`.)
 
 ### `su-exec`
 
-As mentioned in `INSTALL.md`, [`su-exec`](https://github.com/ncopa/su-exec) is a very minimal re-write of `gosu` in C,
+As mentioned in `INSTALL.md`, [`su-exec`](https://github.com/ncopa/su-exec) is a very minimal re-write of `yasu` in C,
 making for a much smaller binary, and is available in the `main` Alpine package repository.
 
 ### `chroot`

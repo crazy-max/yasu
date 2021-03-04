@@ -1,4 +1,4 @@
-module github.com/crazy-max/gosu
+module github.com/crazy-max/yasu
 
 go 1.14
 

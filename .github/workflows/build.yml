@@ -15,8 +15,8 @@ on:
       - '**.md'
 
 env:
-  DOCKERHUB_SLUG: crazymax/gosu
-  GHCR_SLUG: ghcr.io/crazy-max/gosu
+  DOCKERHUB_SLUG: crazymax/yasu
+  GHCR_SLUG: ghcr.io/crazy-max/yasu
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
             {{version}}
           tag-edge: true
           label-custom: |
-            org.opencontainers.image.title=gosu
+            org.opencontainers.image.title=yasu
             org.opencontainers.image.description=Simple Go-based setuid+setgid+setgroups+exec
       -
         name: Set up QEMU
@@ -80,7 +80,7 @@ jobs:
         name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: gosu
+          name: yasu
           path: ./dist/*
           if-no-files-found: error
       -
