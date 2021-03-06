@@ -16,8 +16,8 @@ RUN --mount=type=bind,target=/src,rw \
   goreleaser-xx --debug \
     --name "yasu" \
     --dist "/out" \
-    --before-hooks="go mod tidy" \
-    --before-hooks="go mod download" \
+    --hooks="go mod tidy" \
+    --hooks="go mod download" \
     --ldflags="-s -w -X 'main.Version={{.Version}}'" \
     --files="CHANGELOG.md" \
     --files="LICENSE" \
