@@ -9,8 +9,8 @@ ___
 
 * [Yet Another?](#yet-another)
 * [About](#about)
-* [Warning](#warning)
-* [Installation](#installation)
+  * [Warning](#warning)
+* [Usage](#usage)
   * [From binary](#from-binary)
   * [From Dockerfile](#from-dockerfile)
 * [Build](#build)
@@ -22,7 +22,7 @@ ___
   * [Others](#others)
 * [License](#license)
 
-# Yet Another?
+## Yet Another?
 
 This repository is a fork of [tianon/gosu](https://github.com/tianon/gosu) and renamed to avoid confusion as asked by
 the main maintainer. See [tianon/gosu#82 (comment)](https://github.com/tianon/gosu/pull/82#issuecomment-790874961).
@@ -34,7 +34,7 @@ added to avoid tempered artifacts and more transparency around [releases](https:
 
 More info: [tianon/gosu#82](https://github.com/tianon/gosu/pull/82)
 
-# About
+## About
 
 This is a simple tool grown out of the simple fact that `su` and `sudo` have very strange and often annoying TTY and
 signal-forwarding behavior. They're also somewhat complex to setup and use (especially in the case of `sudo`), which
@@ -58,7 +58,7 @@ Once the user/group is processed, we switch to that user, then we `exec` the spe
 longer resident or involved in the process lifecycle at all.  This avoids all the issues of signal passing and TTY,
 and punts them to the process invoking `yasu` and the process being invoked by `yasu`, where they belong.
 
-## Warning
+### Warning
 
 The core use case for `yasu` is to step _down_ from `root` to a non-privileged user during container startup
 (specifically in the `ENTRYPOINT`, usually).
@@ -67,7 +67,7 @@ Uses of `yasu` beyond that could very well suffer from vulnerabilities such as C
 use case naturally shields us); see [`tianon/gosu#37`](https://github.com/tianon/gosu/issues/37) for some discussion
 around this point.
 
-## Installation
+## Usage
 
 ### From binary
 
@@ -77,6 +77,8 @@ Choose the archive matching the destination platform:
 
 ```shell
 wget -qO- https://github.com/crazy-max/yasu/releases/download/v1.13.0/yasu_1.13.0_linux_x86_64.tar.gz | tar -zxvf - yasu
+yasu --version
+yasu nobody true
 ```
 
 ### From Dockerfile
@@ -105,9 +107,7 @@ Image: crazymax/alpine-s6:latest
 Here is how to use `yasu` inside your Dockerfile:
 
 ```Dockerfile
-ARG YASU_VERSION=1.13.0
-
-FROM crazymax/yasu:${YASU_VERSION} AS yasu
+FROM crazymax/yasu:latest AS yasu
 FROM alpine
 COPY --from=yasu / /
 RUN yasu --version
@@ -115,8 +115,6 @@ RUN yasu nobody true
 ```
 
 ## Build
-
-You only need Docker to build `yasu`:
 
 ```shell
 git clone https://github.com/crazy-max/yasu.git yasu
