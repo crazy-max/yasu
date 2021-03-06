@@ -10,7 +10,7 @@ ___
 * [Yet Another?](#yet-another)
 * [About](#about)
   * [Warning](#warning)
-* [Installation](#installation)
+* [Usage](#usage)
   * [From binary](#from-binary)
   * [From Dockerfile](#from-dockerfile)
 * [Build](#build)
@@ -67,7 +67,7 @@ Uses of `yasu` beyond that could very well suffer from vulnerabilities such as C
 use case naturally shields us); see [`tianon/gosu#37`](https://github.com/tianon/gosu/issues/37) for some discussion
 around this point.
 
-## Installation
+## Usage
 
 ### From binary
 
