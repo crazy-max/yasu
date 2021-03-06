@@ -21,7 +21,7 @@ RUN --mount=type=bind,target=/src,rw \
   goreleaser-xx --debug \
     --name "yasu" \
     --dist "/out" \
-    --files "CHANGELOG,README.md,LICENSE"
+    --files "CHANGELOG.md,LICENSE,README.md"
 
 FROM scratch AS artifacts
 COPY --from=build /out/*.tar.gz /
