@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
 ARG GO_VERSION=1.14
 
-FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:edge AS goreleaser-xx
+FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:latest AS goreleaser-xx
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine AS base
 COPY --from=goreleaser-xx / /
 RUN apk add --no-cache ca-certificates curl file gcc git linux-headers musl-dev tar
@@ -18,7 +18,7 @@ RUN --mount=type=bind,target=/src,rw \
     --dist "/out" \
     --before-hooks="go mod tidy" \
     --before-hooks="go mod download" \
-    --ldflags="-s -w -X 'main.version={{.Version}}'" \
+    --ldflags="-s -w -X 'main.Version={{.Version}}'" \
     --files="CHANGELOG.md" \
     --files="LICENSE" \
     --files="README.md"
