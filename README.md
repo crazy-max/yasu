@@ -96,6 +96,7 @@ Image: crazymax/alpine-s6:latest
  * Manifest List: Yes
  * Supported platforms:
    - linux/amd64
+   - linux/arm/v5
    - linux/arm/v6
    - linux/arm/v7
    - linux/arm64

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.14.1 (2021/03/06)
+
+* Switch to `goreleaser-xx` (#2)
+* Add `arm/v5` platform
+
 ## 1.14.0 (2021/03/04)
 
 * Rename project `yasu`. Asked by `gosu` maintainer to avoid confusion. See [tianon/gosu#82 (comment)](https://github.com/tianon/gosu/pull/82#issuecomment-790874961)
