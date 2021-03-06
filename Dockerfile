@@ -7,7 +7,7 @@ COPY --from=goreleaser-xx / /
 RUN apk add --no-cache ca-certificates curl file gcc git linux-headers musl-dev tar
 WORKDIR /src
 
-FROM gomod AS base
+FROM base AS build
 ARG TARGETPLATFORM
 ARG GIT_REF
 RUN --mount=type=bind,target=/src,rw \
