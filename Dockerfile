@@ -7,12 +7,7 @@ COPY --from=goreleaser-xx / /
 RUN apk add --no-cache ca-certificates curl file gcc git linux-headers musl-dev tar
 WORKDIR /src
 
-FROM base AS gomod
-RUN --mount=type=bind,target=.,rw \
-  --mount=type=cache,target=/go/pkg/mod \
-  go mod tidy && go mod download
-
-FROM gomod AS build
+FROM gomod AS base
 ARG TARGETPLATFORM
 ARG GIT_REF
 RUN --mount=type=bind,target=/src,rw \
@@ -21,8 +16,12 @@ RUN --mount=type=bind,target=/src,rw \
   goreleaser-xx --debug \
     --name "yasu" \
     --dist "/out" \
+    --before-hooks="go mod tidy" \
+    --before-hooks="go mod download" \
     --ldflags="-s -w -X 'main.version={{.Version}}'" \
-    --files "CHANGELOG.md,LICENSE,README.md"
+    --files="CHANGELOG.md" \
+    --files="LICENSE" \
+    --files="README.md"
 
 FROM scratch AS artifacts
 COPY --from=build /out/*.tar.gz /
