@@ -3,8 +3,8 @@ ARG GO_VERSION=1.14
 
 FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:latest AS goreleaser-xx
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine AS base
+RUN apk add --no-cache git
 COPY --from=goreleaser-xx / /
-RUN apk add --no-cache ca-certificates curl file gcc git linux-headers musl-dev tar
 WORKDIR /src
 
 FROM base AS build
