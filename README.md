@@ -92,7 +92,7 @@ Following platforms for this image are available:
 
 ```
 $ docker run --rm mplatform/mquery crazymax/yasu:latest
-Image: crazymax/alpine-s6:latest
+Image: crazymax/yasu:latest
  * Manifest List: Yes
  * Supported platforms:
    - linux/amd64
