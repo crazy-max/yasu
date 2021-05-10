@@ -30,7 +30,7 @@ jobs:
       -
         name: Docker meta
         id: meta
-        uses: crazy-max/ghaction-docker-meta@v2
+        uses: docker/metadata-action@v3
         with:
           images: |
             ${{ env.DOCKERHUB_SLUG }}
@@ -99,9 +99,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
-          files: |
-            dist/*.tar.gz
-            dist/*.zip
+          files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       -
