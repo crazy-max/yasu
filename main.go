@@ -31,7 +31,7 @@ Usage: {{ .Self }} user-spec command [args]
        {{ .Self }} 1000:1 id
 
 {{ .Self }} version: {{ .Version }}
-{{ .Self }} license: GPL-3 (full text at https://github.com/crazy-max/yasu)
+{{ .Self }} license: Apache-2.0 (full text at https://github.com/crazy-max/yasu)
 `))
 	var b bytes.Buffer
 	template.Must(t, t.Execute(&b, struct {
