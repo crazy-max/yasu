@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.0 (2021/06/18)
+
+* Go 1.16 (#14)
+* Bump github.com/opencontainers/runc from 1.0.0-rc93 to 1.0.0-rc95 (#13)
+* Set `cacheonly` output for validators
+* Switch to `docker/metadata-action`
+
 ## 1.14.1 (2021/03/06)
 
 * Switch to `goreleaser-xx` (#2)
