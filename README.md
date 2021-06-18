@@ -20,6 +20,7 @@ ___
   * [`chroot`](#chroot)
   * [`setpriv`](#setpriv)
   * [Others](#others)
+* [Contributing](#contributing)
 * [License](#license)
 
 ## Yet Another?
@@ -194,6 +195,15 @@ nobody       1  5.0  0.0   9592  1252 pts/0    RNs+ 23:21   0:00 ps faux
 I'm not terribly familiar with them, but a few other alternatives I'm aware of include:
 
 * `chpst` (part of `runit`)
+
+## Contributing
+
+Want to contribute? Awesome! The most basic way to show your support is to star :star2: the project,
+or to raise issues :speech_balloon:. If you want to open a pull request, please read the
+[contributing guidelines](.github/CONTRIBUTING.md).
+
+You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) or by
+making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely!
 
 ## License
 
