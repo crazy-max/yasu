@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.16.0 (2021/06/26)
+
+* Add support for `riscv64` and create `linux/mips64le` image (#16)
+* Bump github.com/opencontainers/runc from 1.0.0-rc95 to 1.0.0 (#15)
+
 ## 1.15.0 (2021/06/18)
 
 * Go 1.16 (#14)
