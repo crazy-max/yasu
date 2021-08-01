@@ -1,8 +1,8 @@
-# syntax=docker/dockerfile:1.2
+# syntax=docker/dockerfile:1.3
 ARG GO_VERSION
 
 FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:latest AS goreleaser-xx
-FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine AS base
+FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine3.14 AS base
 RUN apk add --no-cache git
 COPY --from=goreleaser-xx / /
 WORKDIR /src
@@ -27,7 +27,7 @@ FROM scratch AS artifacts
 COPY --from=build /out/*.tar.gz /
 COPY --from=build /out/*.zip /
 
-FROM alpine AS test-alpine
+FROM alpine:3.14 AS test-alpine
 COPY --from=build /usr/local/bin/yasu /usr/local/bin/yasu
 RUN cut -d: -f1 /etc/group | xargs -n1 addgroup nobody
 RUN chgrp nobody /usr/local/bin/yasu && chmod +s /usr/local/bin/yasu

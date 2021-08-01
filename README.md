@@ -200,12 +200,13 @@ I'm not terribly familiar with them, but a few other alternatives I'm aware of i
 
 ## Contributing
 
-Want to contribute? Awesome! The most basic way to show your support is to star :star2: the project,
-or to raise issues :speech_balloon:. If you want to open a pull request, please read the
-[contributing guidelines](.github/CONTRIBUTING.md).
+Want to contribute? Awesome! The most basic way to show your support is to star the project, or to raise issues. If
+you want to open a pull request, please read the [contributing guidelines](.github/CONTRIBUTING.md).
 
 You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) or by
 making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely!
+
+Thanks again for your support, it is much appreciated! :pray:
 
 ## License
 
