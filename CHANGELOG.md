@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.18.0 (2021/12/18)
+
+* Bump github.com/opencontainers/runc from 1.0.1 to 1.0.3 (#18 #19)
+
 ## 1.17.0 (2021/08/01)
 
 * Bump github.com/opencontainers/runc from 1.0.0 to 1.0.1 (#17)
