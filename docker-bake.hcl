@@ -61,11 +61,13 @@ group "test" {
 target "test-alpine" {
   inherits = ["go-version"]
   target = "test-alpine"
+  output = ["type=cacheonly"]
 }
 
 target "test-debian" {
   inherits = ["go-version"]
   target = "test-debian"
+  output = ["type=cacheonly"]
 }
 
 target "artifact" {
