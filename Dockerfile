@@ -1,23 +1,29 @@
-# syntax=docker/dockerfile:1.3
-ARG GO_VERSION
+# syntax=docker/dockerfile:1
 
-FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:latest AS goreleaser-xx
+ARG GO_VERSION
+ARG GORELEASER_XX_VERSION="1.2.5"
+
+FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:${GORELEASER_XX_VERSION} AS goreleaser-xx
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine AS base
-RUN apk add --no-cache git
+ENV CGO_ENABLED=0
 COPY --from=goreleaser-xx / /
+RUN apk add --no-cache git
 WORKDIR /src
 
-FROM base AS build
+FROM base AS vendored
+RUN --mount=type=bind,source=.,target=/src,rw \
+  --mount=type=cache,target=/go/pkg/mod \
+  go mod tidy && go mod download
+
+FROM vendored AS build
 ARG TARGETPLATFORM
-ARG GIT_REF
 RUN --mount=type=bind,target=/src,rw \
-  --mount=type=cache,target=/root/.cache/go-build \
-  --mount=target=/go/pkg/mod,type=cache \
+  --mount=type=cache,target=/root/.cache \
+  --mount=type=cache,target=/go/pkg/mod \
   goreleaser-xx --debug \
     --name "yasu" \
     --dist "/out" \
-    --hooks="go mod tidy" \
-    --hooks="go mod download" \
+    --flags="-trimpath" \
     --ldflags="-s -w -X 'main.Version={{.Version}}'" \
     --files="CHANGELOG.md" \
     --files="LICENSE" \
@@ -26,6 +32,9 @@ RUN --mount=type=bind,target=/src,rw \
 FROM scratch AS artifacts
 COPY --from=build /out/*.tar.gz /
 COPY --from=build /out/*.zip /
+
+FROM scratch AS binary
+COPY --from=build /usr/local/bin/yasu /
 
 FROM alpine:3.15 AS test-alpine
 COPY --from=build /usr/local/bin/yasu /usr/local/bin/yasu

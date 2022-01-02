@@ -3,20 +3,10 @@ variable "GO_VERSION" {
   default = "1.16"
 }
 
-target "go-version" {
+target "_common" {
   args = {
     GO_VERSION = GO_VERSION
-  }
-}
-
-// GitHub reference as defined in GitHub Actions (eg. refs/head/master))
-variable "GITHUB_REF" {
-  default = ""
-}
-
-target "git-ref" {
-  args = {
-    GIT_REF = GITHUB_REF
+    BUILDKIT_CONTEXT_KEEP_GIT_DIR = 1
   }
 }
 
@@ -29,49 +19,14 @@ group "default" {
   targets = ["image-local"]
 }
 
-group "validate" {
-  targets = ["lint", "vendor-validate"]
-}
-
-target "lint" {
-  inherits = ["go-version"]
-  dockerfile = "./hack/lint.Dockerfile"
-  target = "lint"
-  output = ["type=cacheonly"]
-}
-
-target "vendor-validate" {
-  inherits = ["go-version"]
-  dockerfile = "./hack/vendor.Dockerfile"
-  target = "validate"
-  output = ["type=cacheonly"]
-}
-
-target "vendor-update" {
-  inherits = ["go-version"]
-  dockerfile = "./hack/vendor.Dockerfile"
-  target = "update"
-  output = ["."]
-}
-
-group "test" {
-  targets = ["test-alpine", "test-debian"]
-}
-
-target "test-alpine" {
-  inherits = ["go-version"]
-  target = "test-alpine"
-  output = ["type=cacheonly"]
-}
-
-target "test-debian" {
-  inherits = ["go-version"]
-  target = "test-debian"
-  output = ["type=cacheonly"]
+target "binary" {
+  inherits = ["_common"]
+  target = "binary"
+  output = ["./bin"]
 }
 
 target "artifact" {
-  inherits = ["go-version", "git-ref"]
+  inherits = ["_common"]
   target = "artifacts"
   output = ["./dist"]
 }
@@ -100,7 +55,7 @@ target "artifact-all" {
 }
 
 target "image" {
-  inherits = ["go-version", "git-ref", "docker-metadata-action"]
+  inherits = ["_common", "docker-metadata-action"]
 }
 
 target "image-local" {
@@ -122,4 +77,45 @@ target "image-all" {
     "linux/riscv64",
     "linux/s390x"
   ]
+}
+
+target "vendor" {
+  inherits = ["_common"]
+  dockerfile = "./hack/vendor.Dockerfile"
+  target = "update"
+  output = ["."]
+}
+
+group "validate" {
+  targets = ["lint", "vendor-validate"]
+}
+
+target "lint" {
+  inherits = ["_common"]
+  dockerfile = "./hack/lint.Dockerfile"
+  target = "lint"
+  output = ["type=cacheonly"]
+}
+
+target "vendor-validate" {
+  inherits = ["_common"]
+  dockerfile = "./hack/vendor.Dockerfile"
+  target = "validate"
+  output = ["type=cacheonly"]
+}
+
+group "test" {
+  targets = ["test-alpine", "test-debian"]
+}
+
+target "test-alpine" {
+  inherits = ["_common"]
+  target = "test-alpine"
+  output = ["type=cacheonly"]
+}
+
+target "test-debian" {
+  inherits = ["_common"]
+  target = "test-debian"
+  output = ["type=cacheonly"]
 }
