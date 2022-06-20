@@ -3,6 +3,9 @@
 ARG GO_VERSION="1.18"
 ARG GORELEASER_XX_VERSION="1.2.5"
 
+ARG TEST_ALPINE_VARIANT=3.16
+ARG TEST_DEBIAN_VARIANT=bullseye
+
 FROM --platform=$BUILDPLATFORM crazymax/goreleaser-xx:${GORELEASER_XX_VERSION} AS goreleaser-xx
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-alpine AS base
 ENV CGO_ENABLED=0
@@ -36,7 +39,7 @@ COPY --from=build /out/*.zip /
 FROM scratch AS binary
 COPY --from=build /usr/local/bin/yasu /
 
-FROM alpine:3.15 AS test-alpine
+FROM alpine:${TEST_ALPINE_VARIANT} AS test-alpine
 COPY --from=build /usr/local/bin/yasu /usr/local/bin/yasu
 RUN cut -d: -f1 /etc/group | xargs -n1 addgroup nobody
 RUN chgrp nobody /usr/local/bin/yasu && chmod +s /usr/local/bin/yasu
@@ -47,7 +50,7 @@ WORKDIR /src
 RUN --mount=type=bind,target=/src \
   ./hack/test.sh
 
-FROM debian:buster-slim AS test-debian
+FROM debian:${TEST_DEBIAN_VARIANT}-slim AS test-debian
 COPY --from=build /usr/local/bin/yasu /usr/local/bin/yasu
 RUN cut -d: -f1 /etc/group | xargs -n1 -I'{}' usermod -aG '{}' nobody
 # emulate Alpine's "games" user (which is part of the "users" group)
