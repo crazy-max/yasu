@@ -108,14 +108,26 @@ group "test" {
   targets = ["test-alpine", "test-debian"]
 }
 
+variable "TEST_ALPINE_VARIANT" {
+  default = "3.16"
+}
 target "test-alpine" {
   inherits = ["_common"]
   target = "test-alpine"
   output = ["type=cacheonly"]
+  args = {
+    TEST_ALPINE_VARIANT = TEST_ALPINE_VARIANT
+  }
 }
 
+variable "TEST_DEBIAN_VARIANT" {
+  default = "bullseye"
+}
 target "test-debian" {
   inherits = ["_common"]
   target = "test-debian"
   output = ["type=cacheonly"]
+  args = {
+    TEST_DEBIAN_VARIANT = TEST_DEBIAN_VARIANT
+  }
 }

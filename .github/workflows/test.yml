@@ -1,0 +1,53 @@
+name: test
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+
+jobs:
+  alpine:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - 3.14
+          - 3.15
+          - 3.16
+          - edge
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Test
+        uses: docker/bake-action@v2
+        with:
+          targets: test-alpine
+        env:
+          TEST_ALPINE_VARIANT: ${{ matrix.variant }}
+
+  debian:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - buster
+          - bullseye
+          - sid
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test
+        uses: docker/bake-action@v2
+        with:
+          targets: test-debian
+        env:
+          TEST_DEBIAN_VARIANT: ${{ matrix.variant }}
