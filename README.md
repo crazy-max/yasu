@@ -31,7 +31,7 @@ the main maintainer. See [tianon/gosu#82 (comment)](https://github.com/tianon/go
 `yasu` because it's _Yet Another Switch User_. The main purpose of this fork is to handle a functional
 multi-platform scratch Docker image to ease the [integration in a Dockerfile](#from-dockerfile). Everything is
 dockerized and handled by [buildx bake](#build) for an agnostic usage of this repo. Finally, GitHub Actions has been
-added to avoid tempered artifacts and more transparency around [releases](https://github.com/crazy-max/yasu/releases).
+added to avoid tampered artifacts and more transparency around [releases](https://github.com/crazy-max/yasu/releases).
 
 More info: [tianon/gosu#82](https://github.com/tianon/gosu/pull/82)
 
