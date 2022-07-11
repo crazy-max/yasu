@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.19.0 (2022/07/11)
+
+* Go 1.18 (#33)
+* Bump github.com/opencontainers/runc from 1.0.3 to 1.1.3 (#21 #32)
+* ci: matrix to test against more variants (#34)
+* Enhance dockerfiles (#20)
+
 ## 1.18.0 (2021/12/18)
 
 * Bump github.com/opencontainers/runc from 1.0.1 to 1.0.3 (#18 #19)
