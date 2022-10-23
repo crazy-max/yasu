@@ -1,12 +1,10 @@
-// Go version
 variable "GO_VERSION" {
-  default = "1.18"
+  default = "1.19"
 }
 
 target "_common" {
   args = {
     GO_VERSION = GO_VERSION
-    BUILDKIT_CONTEXT_KEEP_GIT_DIR = 1
   }
 }
 
