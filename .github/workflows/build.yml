@@ -72,15 +72,16 @@ jobs:
         with:
           targets: artifact-all
       -
-        name: Move artifacts
-        run: |
-          mv ./dist/**/* ./dist/
+        name: Release
+        uses: docker/bake-action@v2
+        with:
+          targets: release
       -
         name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: yasu
-          path: ./dist/*
+          path: ./release/*
           if-no-files-found: error
       -
         name: Build
@@ -97,7 +98,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
-          files: dist/*
+          files: |
+            release/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       -

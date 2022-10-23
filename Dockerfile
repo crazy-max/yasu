@@ -45,6 +45,20 @@ EOT
 FROM scratch AS binary
 COPY --link --from=build /usr/bin/yasu /
 
+FROM scratch AS artifacts
+FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS releaser
+RUN apk add --no-cache bash coreutils
+WORKDIR /out
+RUN --mount=from=artifacts,source=.,target=/artifacts <<EOT
+  set -e
+  cp /artifacts/**/* /out/ 2>/dev/null || cp /artifacts/* /out/
+  sha256sum -b yasu_* > ./checksums.txt
+  sha256sum -c --strict checksums.txt
+EOT
+
+FROM scratch AS release
+COPY --link --from=releaser /out /
+
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS build-artifact
 RUN apk add --no-cache bash tar
 WORKDIR /work
