@@ -15,6 +15,7 @@ on:
 env:
   DOCKERHUB_SLUG: crazymax/yasu
   GHCR_SLUG: ghcr.io/crazy-max/yasu
+  DESTDIR: ./bin
 
 jobs:
   build:
@@ -81,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: yasu
-          path: ./release/*
+          path: ${{ env.DESTDIR }}/release/*
           if-no-files-found: error
       -
         name: Build
@@ -99,7 +100,7 @@ jobs:
         with:
           draft: true
           files: |
-            release/*
+            ${{ env.DESTDIR }}/release/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       -

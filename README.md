@@ -136,7 +136,7 @@ docker buildx bake
 # build multi-platform image
 docker buildx bake image-all
 
-# create artifacts in ./dist
+# build artifacts and output to ./bin/artifact
 docker buildx bake artifact-all
 ```
 

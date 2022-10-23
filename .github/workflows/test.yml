@@ -43,9 +43,11 @@ jobs:
           - bullseye
           - sid
     steps:
-      - name: Checkout
+      -
+        name: Checkout
         uses: actions/checkout@v3
-      - name: Test
+      -
+        name: Test
         uses: docker/bake-action@v2
         with:
           targets: test-debian
