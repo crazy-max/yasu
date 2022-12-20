@@ -1,6 +1,6 @@
 [![GitHub release](https://img.shields.io/github/release/crazy-max/yasu.svg?style=flat-square)](https://github.com/crazy-max/yasu/releases/latest)
 [![Total downloads](https://img.shields.io/github/downloads/crazy-max/yasu/total.svg?style=flat-square)](https://github.com/crazy-max/yasu/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/crazy-max/yasu/build?label=build&logo=github&style=flat-square)](https://github.com/crazy-max/yasu/actions?query=workflow%3Abuild)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/crazy-max/yasu/build.yml?branch=master&label=build&logo=github&style=flat-square)](https://github.com/crazy-max/yasu/actions?query=workflow%3Abuild)
 [![Docker Stars](https://img.shields.io/docker/stars/crazymax/yasu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/yasu/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/yasu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/yasu/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/crazy-max/yasu)](https://goreportcard.com/report/github.com/crazy-max/yasu)
