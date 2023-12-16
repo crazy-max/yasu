@@ -209,4 +209,4 @@ Thanks again for your support, it is much appreciated! :pray:
 
 ## License
 
-GPL-3.0. See `LICENSE` for more details.
+Apache-2.0. See `LICENSE` for more details.
