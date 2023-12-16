@@ -125,7 +125,7 @@ group "test" {
 }
 
 variable "TEST_ALPINE_VARIANT" {
-  default = "3.16"
+  default = null
 }
 target "test-alpine" {
   inherits = ["_common"]
@@ -137,7 +137,7 @@ target "test-alpine" {
 }
 
 variable "TEST_DEBIAN_VARIANT" {
-  default = "bullseye"
+  default = null
 }
 target "test-debian" {
   inherits = ["_common"]
