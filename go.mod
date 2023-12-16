@@ -1,6 +1,6 @@
 module github.com/crazy-max/yasu
 
-go 1.18
+go 1.21
 
 require github.com/opencontainers/runc v1.1.10
 
