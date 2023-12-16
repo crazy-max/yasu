@@ -31,7 +31,7 @@ Usage: {{ .Self }} user-spec command [args]
        {{ .Self }} 1000:1 id
 
 {{ .Self }} version: {{ .Version }}
-{{ .Self }} license: GPL-3 (full text at https://github.com/crazy-max/yasu)
+{{ .Self }} license: Apache-2.0 (full text at https://github.com/crazy-max/yasu)
 `))
 	var b bytes.Buffer
 	template.Must(t, t.Execute(&b, struct {
@@ -46,6 +46,18 @@ Usage: {{ .Self }} user-spec command [args]
 
 func main() {
 	log.SetFlags(0) // no timestamps on our logs
+
+	if ok := os.Getenv("GOSU_PLEASE_LET_ME_BE_COMPLETELY_INSECURE_I_GET_TO_KEEP_ALL_THE_PIECES"); ok != "I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the dark near the Tannhäuser Gate. All those moments will be lost in time, like tears in rain. Time to die." {
+		if fi, err := os.Stat("/proc/self/exe"); err != nil {
+			log.Fatalf("error: %v", err)
+		} else if fi.Mode()&os.ModeSetuid != 0 {
+			// ... oh no
+			log.Fatalf("error: %q appears to be installed with the 'setuid' bit set, which is an *extremely* insecure and completely unsupported configuration! (what you want instead is likely 'sudo' or 'su')", os.Args[0])
+		} else if fi.Mode()&os.ModeSetgid != 0 {
+			// ... oh no
+			log.Fatalf("error: %q appears to be installed with the 'setgid' bit set, which is not quite *as* insecure as 'setuid', but still not great, and definitely a completely unsupported configuration! (what you want instead is likely 'sudo' or 'su')", os.Args[0])
+		}
+	}
 
 	if len(os.Args) >= 2 {
 		switch os.Args[1] {

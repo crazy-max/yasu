@@ -82,6 +82,7 @@ FROM alpine:${TEST_ALPINE_VARIANT} AS test-alpine
 COPY --from=build /usr/bin/yasu /usr/local/bin/yasu
 RUN cut -d: -f1 /etc/group | xargs -n1 addgroup nobody
 RUN chgrp nobody /usr/local/bin/yasu && chmod +s /usr/local/bin/yasu
+ENV GOSU_PLEASE_LET_ME_BE_COMPLETELY_INSECURE_I_GET_TO_KEEP_ALL_THE_PIECES="I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the dark near the Tannhäuser Gate. All those moments will be lost in time, like tears in rain. Time to die."
 USER nobody
 ENV HOME /omg/really/yasu/nowhere
 # now we should be nobody, ALL groups, and have a bogus useless HOME value
@@ -95,6 +96,7 @@ RUN cut -d: -f1 /etc/group | xargs -n1 -I'{}' usermod -aG '{}' nobody
 # emulate Alpine's "games" user (which is part of the "users" group)
 RUN usermod -aG users games
 RUN chgrp nogroup /usr/local/bin/yasu && chmod +s /usr/local/bin/yasu
+ENV GOSU_PLEASE_LET_ME_BE_COMPLETELY_INSECURE_I_GET_TO_KEEP_ALL_THE_PIECES="I've seen things you people wouldn't believe. Attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the dark near the Tannhäuser Gate. All those moments will be lost in time, like tears in rain. Time to die."
 USER nobody
 ENV HOME /omg/really/yasu/nowhere
 # now we should be nobody, ALL groups, and have a bogus useless HOME value
