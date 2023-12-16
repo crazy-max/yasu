@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
-ARG GO_VERSION="1.19"
-ARG ALPINE_VERSION="3.16"
+ARG GO_VERSION="1.21"
+ARG ALPINE_VERSION="3.18"
 
 FROM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS base
 RUN apk add --no-cache git linux-headers musl-dev
