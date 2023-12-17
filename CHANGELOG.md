@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.20.0 (2023/12/17)
+
+* Cherry-picks from upstream (#55)
+  * Use `github.com/moby/sys/user` (https://github.com/tianon/gosu/pull/134)
+  * Check for `setuid` to also disallow `setgid` (https://github.com/tianon/gosu/pull/129)
+  * Disallow installing gosu with `setuid` (https://github.com/tianon/gosu/pull/89)
+  * Switch from GPL to Apache-2.0 (https://github.com/tianon/gosu/commit/975771e79e281c541fab943a53243604271b4f59)
+* Go 1.21 (#53 #54)
+* Bump golang.org/x/sys from 0.13.0 to 0.15.0 (#56)
+
 ## 1.19.0 (2022/07/11)
 
 * Go 1.18 (#33)
