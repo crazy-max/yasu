@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.20.1 (2023/12/21)
+
+* Fix release archive extension (#61)
+
 ## 1.20.0 (2023/12/17)
 
 * Cherry-picks from upstream (#55)
