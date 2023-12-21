@@ -72,7 +72,7 @@ RUN --mount=type=bind,target=/src \
   mkdir /out
   version=$(cat /tmp/.version)
   cp /build/* /src/CHANGELOG.md /src/LICENSE /src/README.md .
-  tar -czvf "/out/yasu_${version#v}_${TARGETOS}_${TARGETARCH}${TARGETVARIANT}.tar.tgz" .
+  tar -czvf "/out/yasu_${version#v}_${TARGETOS}_${TARGETARCH}${TARGETVARIANT}.tar.gz" .
 EOT
 
 FROM scratch AS artifact
