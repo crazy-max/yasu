@@ -44,6 +44,8 @@ EOT
 
 FROM scratch AS binary
 COPY --link --from=build /usr/bin/yasu /
+# enable scanning for this stage
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
 
 FROM scratch AS artifacts
 FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS releaser
