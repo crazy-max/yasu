@@ -92,20 +92,19 @@ yasu nobody true
 Following platforms for this image are available:
 
 ```
-$ docker run --rm mplatform/mquery crazymax/yasu:latest
-Image: crazymax/yasu:latest
- * Manifest List: Yes
- * Supported platforms:
-   - linux/386
-   - linux/amd64
-   - linux/arm/v5
-   - linux/arm/v6
-   - linux/arm/v7
-   - linux/arm64
-   - linux/mips64le
-   - linux/ppc64le
-   - linux/riscv64
-   - linux/s390x
+$ docker buildx imagetools inspect crazymax/yasu --format "{{json .Manifest}}" | \
+  jq -r '.manifests[] | select(.platform.os != null and .platform.os != "unknown") | .platform | "\(.os)/\(.architecture)\(if .variant then "/" + .variant else "" end)"'
+
+linux/386
+linux/amd64
+linux/arm/v5
+linux/arm/v6
+linux/arm/v7
+linux/arm64
+linux/mips64le
+linux/ppc64le
+linux/riscv64
+linux/s390x
 ```
 
 Here is how to use `yasu` inside your Dockerfile:
