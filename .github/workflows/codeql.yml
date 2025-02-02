@@ -4,6 +4,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+permissions:
+  contents: read
+
 on:
   schedule:
     - cron: '0 12 * * 6'
@@ -17,6 +21,11 @@ on:
 jobs:
   codeql:
     runs-on: ubuntu-latest
+    permissions:
+      # same as global permissions
+      contents: read
+      # required for code scanning
+      security-events: write
     steps:
       -
         name: Checkout
