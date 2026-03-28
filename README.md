@@ -5,6 +5,11 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/yasu.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/crazymax/yasu/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/crazy-max/yasu)](https://goreportcard.com/report/github.com/crazy-max/yasu)
 
+## ⚠️ Abandoned project
+
+This project is not maintained anymore and is abandoned. Feel free to fork and
+make your own changes if needed.
+
 ___
 
 * [Yet Another?](#yet-another)
